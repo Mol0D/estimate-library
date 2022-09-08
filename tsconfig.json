@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "main": "build/index.js",
     "lib": ["es6"],
     "allowJs": true,
     "outDir": "build",
@@ -9,5 +10,5 @@
     "strict": true,
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   }}
