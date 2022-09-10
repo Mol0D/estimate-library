@@ -13,7 +13,11 @@ import {
 import {IConfig} from "./types/IConfig";
 import {setConfig} from "./helpers/config";
 
-function Table (config?: Partial<IConfig>) {
+interface Table {
+    createTable(): void,
+}
+
+function Table (config?: Partial<IConfig>): Table {
     const table = Object.create(Table.prototype);
 
     table.setConfig(config);
