@@ -1,4 +1,4 @@
-import ITable from "../types/table";
+import ITable from "../types/ITable";
 
 const getDiscount = (subtotal: number, discountPercent: number) =>
     normalizePrice(subtotal * divIn100(discountPercent));

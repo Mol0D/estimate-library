@@ -1,6 +1,6 @@
-import IRow from "./row";
-import ISection from "./section";
-import {IConfig} from "./config";
+import IRow from "./IRow";
+import ISection from "./ISection";
+import {IConfig} from "./IConfig";
 
 export default interface ITable {
     sections: Array<ISection>;

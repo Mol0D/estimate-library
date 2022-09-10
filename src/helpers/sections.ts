@@ -1,6 +1,6 @@
-import IRow from "../types/row";
+import IRow from "../types/IRow";
 import { v4 as uuidv4 } from 'uuid';
-import IDepartment from "../types/department";
+import IDepartment from "../types/IDepartment";
 import {
     addDepartmentToRow,
     calculateRow,
@@ -9,7 +9,7 @@ import {
     updateDepartmentInRow,
     updateRowName
 } from "../helpers/row";
-import ISection from "../types/section";
+import ISection from "../types/ISection";
 
 export function createSection (departments: Array<IDepartment>, sectionName: string): ISection  {
     return {

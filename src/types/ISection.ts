@@ -1,4 +1,4 @@
-import IRow from "./row";
+import IRow from "./IRow";
 
 export default interface ISection {
     id: string;

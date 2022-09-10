@@ -1,6 +1,6 @@
-import IDepartment from "../types/department";
-import ITable from "../types/table";
-import ISection from "../types/section";
+import IDepartment from "../types/IDepartment";
+import ITable from "../types/ITable";
+import ISection from "../types/ISection";
 import {
     createDuplicateSection,
     createRowInSection,

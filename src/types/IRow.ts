@@ -1,4 +1,4 @@
-import IDepartment from "./department";
+import IDepartment from "./IDepartment";
 
 export default interface IRow {
     id: string;

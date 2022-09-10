@@ -1,5 +1,5 @@
-import {IConfig} from "../types/config";
-import ITable from "../types/table";
+import {IConfig} from "../types/IConfig";
+import ITable from "../types/ITable";
 import {calculateTable} from "../helpers/table";
 
 export const initialConfig = (): IConfig => ({

@@ -10,7 +10,7 @@ import {
     updateSectionName,
     updateRowName,
 } from "./helpers/table";
-import {IConfig} from "./types/config";
+import {IConfig} from "./types/IConfig";
 import {setConfig} from "./helpers/config";
 
 function Table (config?: Partial<IConfig>) {

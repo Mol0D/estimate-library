@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import IRow from "../types/row";
-import IDepartment from "../types/department";
+import IRow from "../types/IRow";
+import IDepartment from "../types/IDepartment";
 
 export const createRow = (departments: Array<IDepartment>, name: string = 'Row'): IRow => {
     return {
