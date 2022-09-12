@@ -1,6 +1,6 @@
 import {IConfig} from "../types/IConfig";
 import ITable from "../types/ITable";
-import {calculateTable} from "../helpers/table";
+import {calculateTable} from "./core";
 
 export const initialConfig = (): IConfig => ({
     defaultRowName: 'New Row',

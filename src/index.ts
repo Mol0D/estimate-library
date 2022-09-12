@@ -9,9 +9,9 @@ import {
     duplicateRow,
     updateSectionName,
     updateRowName,
-} from "./helpers/table";
+} from "./lib/core";
 import {IConfig} from "./types/IConfig";
-import {setConfig} from "./helpers/config";
+import {setConfig} from "./lib/config";
 
 interface Table {
     createTable(): void,

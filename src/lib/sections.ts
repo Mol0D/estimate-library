@@ -8,7 +8,7 @@ import {
     deleteDepartmentFromRow, duplicateRow,
     updateDepartmentInRow,
     updateRowName
-} from "../helpers/row";
+} from ".//row";
 import ISection from "../types/ISection";
 
 export function createSection (departments: Array<IDepartment>, sectionName: string): ISection  {

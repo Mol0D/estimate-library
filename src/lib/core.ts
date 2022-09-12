@@ -11,8 +11,8 @@ import {
     updateNameSection,
     updateTask
 } from "./sections";
-import {calculateRow, createRow, resetRowDepartments } from "../helpers/row";
-import {calculateAdditionalRow} from "../helpers/calculations";
+import {calculateRow, createRow, resetRowDepartments } from ".//row";
+import {calculateAdditionalRow} from ".//calculations";
 
 export function createTable (this: ITable) {
     const { defaultSectionName, departments } = this.config
