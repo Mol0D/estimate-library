@@ -15,8 +15,7 @@ import {calculateRow, createRow, resetRowDepartments } from ".//row";
 import {calculateAdditionalRow} from ".//calculations";
 
 /**
- * create table from scratch
- * @return void
+ * create table from scratch with config parameters
  */
 export function createTable (this: ITable) {
     const { defaultSectionName, departments } = this.config
@@ -29,13 +28,16 @@ export function createTable (this: ITable) {
     this.total = createRow(departments, 'Total');
 }
 
+/**
+ * add new section to the bottom of table
+ */
 export function addSection (this: ITable) {
     this.sections.push(createSection(this.config.departments, this.config.defaultSectionName));
 }
 
 /**
+ * delete section from current table
  * @param sectionId
- * @return void
  */
 export function deleteSection (this: ITable, sectionId: string) {
     this.sections = this.sections.filter(section => section.id !== sectionId);
@@ -43,6 +45,10 @@ export function deleteSection (this: ITable, sectionId: string) {
     calculateTable.call(this);
 }
 
+/**
+ * add new row to section
+ * @param sectionId
+ */
 export function addRow (this: ITable, sectionId: string) {
     this.sections = this.sections.map(section => {
         if(section.id === sectionId) return createRowInSection(section, this.config.departments);
@@ -51,6 +57,11 @@ export function addRow (this: ITable, sectionId: string) {
     })
 }
 
+/**
+ * delete row from section
+ * @param sectionId
+ * @param rowId
+ */
 export function deleteRow(this: ITable, sectionId: string, rowId: string) {
     this.sections = this.sections.map(section => {
         if(section.id === sectionId) return deleteRowFromSection(section, rowId);
@@ -61,6 +72,10 @@ export function deleteRow(this: ITable, sectionId: string, rowId: string) {
     calculateTable.call(this);
 }
 
+/**
+ * duplicate already existed section
+ * @param duplicateSectionId
+ */
 export function duplicateSection(this: ITable, duplicateSectionId: string) {
     const duplicatedSectionIndex = this.sections.findIndex(section => section.id === duplicateSectionId);
     const duplicatedSection = this.sections[duplicatedSectionIndex];
@@ -70,6 +85,11 @@ export function duplicateSection(this: ITable, duplicateSectionId: string) {
     calculateTable.call(this);
 }
 
+/**
+ * duplicate already existed row
+ * @param sectionId
+ * @param duplicateRowId
+ */
 export function duplicateRow(this: ITable, sectionId: string, duplicateRowId: string) {
     this.sections = this.sections.map(section => {
         if (section.id === sectionId) duplicateRowInSection(section, duplicateRowId);
@@ -80,6 +100,11 @@ export function duplicateRow(this: ITable, sectionId: string, duplicateRowId: st
     calculateTable.call(this);
 }
 
+/**
+ * update current section name
+ * @param sectionId
+ * @param name
+ */
 export function updateSectionName(this: ITable, sectionId: string, name: string) {
     this.sections = this.sections.map((section: ISection) => {
         if(section.id === sectionId) return updateNameSection(section, name);
@@ -88,6 +113,12 @@ export function updateSectionName(this: ITable, sectionId: string, name: string)
     })
 }
 
+/**
+ * update current row name
+ * @param sectionId
+ * @param rowId
+ * @param name
+ */
 export function updateRowName(this: ITable, sectionId: string, rowId: string, name: string) {
     this.sections = this.sections.map((section: ISection) => {
         if (section.id === sectionId) return updateTask(section, rowId, name);
@@ -96,6 +127,13 @@ export function updateRowName(this: ITable, sectionId: string, rowId: string, na
     })
 }
 
+/**
+ * update value of department in task
+ * @param sectionId
+ * @param taskId
+ * @param depId
+ * @param value
+ */
 export function updateTaskDepValue(this: ITable, sectionId: string, taskId: string, depId: number, value: number){
     this.sections = this.sections.map((section: ISection) => {
         if (section.id === sectionId) return updateDepartmentValueInSection(section, taskId, depId, value)
