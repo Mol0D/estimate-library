@@ -14,6 +14,10 @@ import {
 import {calculateRow, createRow, resetRowDepartments } from ".//row";
 import {calculateAdditionalRow} from ".//calculations";
 
+/**
+ * create table from scratch
+ * @return void
+ */
 export function createTable (this: ITable) {
     const { defaultSectionName, departments } = this.config
 
@@ -29,6 +33,10 @@ export function addSection (this: ITable) {
     this.sections.push(createSection(this.config.departments, this.config.defaultSectionName));
 }
 
+/**
+ * @param sectionId
+ * @return void
+ */
 export function deleteSection (this: ITable, sectionId: string) {
     this.sections = this.sections.filter(section => section.id !== sectionId);
 
