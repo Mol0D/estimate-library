@@ -12,12 +12,9 @@ import {
 } from "./lib/core";
 import {IConfig} from "./types/IConfig";
 import {setConfig} from "./lib/config";
+import IEstimate from "./types/IEstimate";
 
-interface Table {
-    createTable(): void,
-}
-
-function Table (config?: Partial<IConfig>): Table {
+function Table (config?: Partial<IConfig>): IEstimate {
     const table = Object.create(Table.prototype);
 
     table.setConfig(config);
