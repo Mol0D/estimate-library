@@ -51,7 +51,7 @@ export function deleteSection (this: ITable, sectionId: string) {
  */
 export function addRow (this: ITable, sectionId: string) {
     this.sections = this.sections.map(section => {
-        if(section.id === sectionId) return createRowInSection(section, this.config.departments);
+        if(section.id === sectionId) return createRowInSection.call(this, section, this.config.departments);
 
         return section;
     })
@@ -64,7 +64,7 @@ export function addRow (this: ITable, sectionId: string) {
  */
 export function deleteRow(this: ITable, sectionId: string, rowId: string) {
     this.sections = this.sections.map(section => {
-        if(section.id === sectionId) return deleteRowFromSection(section, rowId);
+        if(section.id === sectionId) return deleteRowFromSection.call(this, section, rowId);
 
         return section;
     })
@@ -92,7 +92,7 @@ export function duplicateSection(this: ITable, duplicateSectionId: string) {
  */
 export function duplicateRow(this: ITable, sectionId: string, duplicateRowId: string) {
     this.sections = this.sections.map(section => {
-        if (section.id === sectionId) duplicateRowInSection(section, duplicateRowId);
+        if (section.id === sectionId) duplicateRowInSection.call(this, section, duplicateRowId);
 
         return section;
     });
@@ -136,7 +136,7 @@ export function updateRowName(this: ITable, sectionId: string, rowId: string, na
  */
 export function updateTaskDepValue(this: ITable, sectionId: string, taskId: string, depId: number, value: number){
     this.sections = this.sections.map((section: ISection) => {
-        if (section.id === sectionId) return updateDepartmentValueInSection(section, taskId, depId, value)
+        if (section.id === sectionId) return updateDepartmentValueInSection.call(this, section, taskId, depId, value)
 
        return section;
     });
