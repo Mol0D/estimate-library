@@ -5,5 +5,6 @@ export default interface IRow {
     name: string;
     departments: Array<IDepartment>
     costPrice: number;
+    margin: number;
     price: number;
 }

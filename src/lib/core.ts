@@ -11,8 +11,8 @@ import {
     updateNameSection,
     updateTask
 } from "./sections";
-import {calculateRow, createRow, resetRowDepartments } from ".//row";
-import {calculateAdditionalRow} from ".//calculations";
+import { createRow, resetRowDepartments } from "./row";
+import {calculateAdditionalRow, calculateRow} from "./calculations";
 
 /**
  * create table from scratch with config parameters
@@ -145,14 +145,14 @@ export function updateTaskDepValue(this: ITable, sectionId: string, taskId: stri
 }
 
 function calculateSubtotal(this: ITable) {
-    const subtotal= resetRowDepartments(this.subtotal);
+    const subtotal = resetRowDepartments(this.subtotal);
 
     this.sections.forEach((section: ISection) =>
         section.total.departments.forEach((dep: IDepartment, d: number) => {
             subtotal.departments[d].value += dep.value
         }))
 
-    this.subtotal = calculateRow(subtotal);
+    this.subtotal = calculateRow.call(this, subtotal);
 }
 
 function calculateAdditionalRows(this: ITable) {
@@ -171,10 +171,10 @@ function calculateAdditionalRows(this: ITable) {
     });
 
 
-    this.discount = calculateRow(discountRow);
-    this.fees = calculateRow(feesRow);
-    this.taxes = calculateRow(taxesRow);
-    this.total = calculateRow(totalRow);
+    this.discount = calculateRow.call(this, discountRow);
+    this.fees = calculateRow.call(this, feesRow);
+    this.taxes = calculateRow.call(this, taxesRow);
+    this.total = calculateRow.call(this, totalRow);
 }
 
 export function calculateTable(this: ITable) {

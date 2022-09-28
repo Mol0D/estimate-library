@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import IRow from "../types/IRow";
 import IDepartment from "../types/IDepartment";
+import ITable from "../types/ITable";
+import { calculateRow } from "./calculations";
 
 export const createRow = (departments: Array<IDepartment>, name: string = 'Row'): IRow => {
     return {
@@ -8,6 +10,7 @@ export const createRow = (departments: Array<IDepartment>, name: string = 'Row')
         name,
         departments,
         costPrice: 0,
+        margin: 0,
         price: 0,
     }
 }
@@ -22,40 +25,34 @@ export const updateRowName = (row: IRow, newName: string): IRow => ({
     name: newName,
 })
 
-export const addDepartmentToRow = (row: IRow, department: IDepartment): IRow => calculateRow({
-    ...row,
-    departments: [...row.departments, department]
-});
-
-export const updateDepartmentInRow = (row: IRow, depId: number, value: number): IRow => calculateRow({
-    ...row,
-    departments: row.departments.map((item: IDepartment) => {
-        if (item.id === depId) {
-            return {
-                ...item,
-                value,
-            }
-        }
-
-        return item;
-    }),
-});
-
-export const deleteDepartmentFromRow = (row: IRow, depId: number): IRow => calculateRow({
-    ...row,
-    departments: row.departments.filter(item => item.id !== depId),
-});
-
-export const calculateRow = (row: IRow): IRow => {
-    const costPrice = row.departments.reduce((acc, dep) => acc + (dep.rate * dep.value), 0);
-
-    const price = costPrice + (costPrice * 0.1); // hardcode
-
-    return {
+export function addDepartmentToRow (this: ITable, row: IRow, department: IDepartment): IRow {
+    return calculateRow.call(this,{
         ...row,
-        costPrice,
-        price,
-    }
+        departments: [...row.departments, department]
+    })
+}
+
+export function updateDepartmentInRow (this: ITable, row: IRow, depId: number, value: number): IRow {
+    return calculateRow.call(this,{
+        ...row,
+        departments: row.departments.map((item: IDepartment) => {
+            if (item.id === depId) {
+                return {
+                    ...item,
+                    value,
+                }
+            }
+
+            return item;
+        }),
+    })
+}
+
+export function deleteDepartmentFromRow (this: ITable, row: IRow, depId: number): IRow {
+    return calculateRow.call(this,{
+        ...row,
+        departments: row.departments.filter(item => item.id !== depId),
+    });
 }
 
 export const resetRowDepartments = (row: IRow): IRow => {
