@@ -92,7 +92,7 @@ export function duplicateSection(this: ITable, duplicateSectionId: string) {
  */
 export function duplicateRow(this: ITable, sectionId: string, duplicateRowId: string) {
     this.sections = this.sections.map(section => {
-        if (section.id === sectionId) duplicateRowInSection.call(this, section, duplicateRowId);
+        if (section.id === sectionId) return duplicateRowInSection.call(this, section, duplicateRowId);
 
         return section;
     });
