@@ -5,10 +5,12 @@ import {
     addDepartmentToRow,
     calculateRow,
     createRow,
-    deleteDepartmentFromRow, duplicateRow,
+    deleteDepartmentFromRow,
+    duplicateRow,
+    resetRowDepartments,
     updateDepartmentInRow,
     updateRowName
-} from ".//row";
+} from "./row";
 import ISection from "../types/ISection";
 
 export function createSection (departments: Array<IDepartment>, sectionName: string): ISection  {
@@ -95,11 +97,9 @@ export const updateDepartmentValueInSection = (section: ISection, rowId: string,
 }
 
 export const calculateSection = (section: ISection): ISection => {
-    const total = section.total;
+    const total = resetRowDepartments(section.total);
 
     section.tasks.forEach((task: IRow) => {
-        total.departments.forEach((_: IDepartment, d: number) => total.departments[d].value = 0);
-
         task.departments.forEach((dep: IDepartment, d: number) => total.departments[d].value += dep.value)
     });
 
