@@ -7,6 +7,7 @@ import { calculateRow } from "./calculations";
 export const createRow = (departments: Array<IDepartment>, name: string = 'Row'): IRow => {
     return {
         id: uuidv4(),
+        isDisabled: false,
         name,
         departments,
         costPrice: 0,
@@ -54,6 +55,13 @@ export function deleteDepartmentFromRow (this: ITable, row: IRow, depId: number)
         departments: row.departments.filter(item => item.id !== depId),
     });
 }
+
+export function toggleRow (this: ITable, row: IRow): IRow {
+  return calculateRow.call(this, {
+      ...row,
+      isDisabled: !row.isDisabled,
+  });
+};
 
 export const resetRowDepartments = (row: IRow): IRow => {
     return {

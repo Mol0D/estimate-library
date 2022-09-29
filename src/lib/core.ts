@@ -7,6 +7,7 @@ import {
     createSection,
     deleteRowFromSection,
     duplicateRowInSection,
+    toggleRowInSection,
     updateDepartmentValueInSection,
     updateNameSection,
     updateTask
@@ -139,6 +140,16 @@ export function updateTaskDepValue(this: ITable, sectionId: string, taskId: stri
         if (section.id === sectionId) return updateDepartmentValueInSection.call(this, section, taskId, depId, value)
 
        return section;
+    });
+
+    calculateTable.call(this);
+}
+
+export function toggleTaskInSection(this: ITable, sectionId: string, taskId: string) {
+    this.sections = this.sections.map((section: ISection) => {
+        if (section.id === sectionId) return toggleRowInSection.call(this, section, taskId)
+
+        return section;
     });
 
     calculateTable.call(this);

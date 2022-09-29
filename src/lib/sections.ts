@@ -6,7 +6,7 @@ import {
     createRow,
     deleteDepartmentFromRow,
     duplicateRow,
-    resetRowDepartments,
+    resetRowDepartments, toggleRow,
     updateDepartmentInRow,
     updateRowName
 } from "./row";
@@ -97,11 +97,22 @@ export function updateDepartmentValueInSection (this: ITable, section: ISection,
     })
 }
 
+export function toggleRowInSection (this: ITable, section: ISection, rowId: string): ISection {
+    return calculateSection.call(this, {
+        ...section,
+        tasks: section.tasks.map((task: IRow) => {
+            if (task.id === rowId) return toggleRow.call(this, task);
+
+            return task;
+        })
+    })
+};
+
 export function calculateSection (this: ITable, section: ISection): ISection {
     const total = resetRowDepartments(section.total);
 
     section.tasks.forEach((task: IRow) => {
-        task.departments.forEach((dep: IDepartment, d: number) => total.departments[d].value += dep.value)
+        if (!task.isDisabled) task.departments.forEach((dep: IDepartment, d: number) => total.departments[d].value += dep.value);
     });
 
     return {
