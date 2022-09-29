@@ -1,5 +1,6 @@
 import ITable from "./ITable";
 import {IConfig} from "./IConfig";
+import {toggleTaskInSection} from "../lib/core";
 
 export default interface IEstimate extends ITable {
     createTable: () => void;
@@ -12,5 +13,6 @@ export default interface IEstimate extends ITable {
     updateSectionName: (sectionId: string, name: string) => void;
     updateRowName: (sectionId: string, rowId: string, name: string) => void;
     updateTaskValue: (sectionId: string, taskId: string, depId: number, value: number) => void;
+    toggleTaskInSection: (sectionId: string, taskId: string) => void;
     setConfig: (this: ITable, config?: Partial<IConfig>) => void;
 }
