@@ -27,7 +27,7 @@ const divIn100 = (n: number) => n / 100;
 const normalizePrice = (n: number) => +n.toFixed(2);
 
 export function calculateRow(this: ITable, row: IRow): IRow {
-    const costPrice = row.departments.reduce((acc, dep) => acc + normalizePrice(dep.rate * dep.value), 0);
+    const costPrice = row.departments.reduce((acc, dep) => acc + normalizePrice(dep.rate * (dep.isDisabled ? 0 :dep.value)), 0);
     const margin = getMargin(costPrice, this.config.margin);
     const price = costPrice + margin;
 

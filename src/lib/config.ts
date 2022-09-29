@@ -6,6 +6,7 @@ import {calculateRow} from "./calculations";
 import {calculateSection} from "./sections";
 import ISection from "../types/ISection";
 import IRow from "../types/IRow";
+import {toggleDepartmentInRow} from "./row";
 
 export const initialConfig = (): IConfig => ({
     defaultRowName: 'New Row',
@@ -44,26 +45,29 @@ export function updateConfig (this: ITable, config: Partial<IConfig>) {
 };
 
 export function toggleDepartment (this: ITable, depId: number) {
+   this.config.departments = this.config.departments.map((department: IDepartment) => {
+       if (department.id === depId) {
+           return {
+               ...department,
+               isDisabled: !department.isDisabled
+           }
+       }
+
+       return department;
+   });
+
    this.sections = this.sections.map((section: ISection) => {
        return calculateSection.call(this, {
            ...section,
-           tasks: section.tasks.map((row: IRow) => {
-               return calculateRow.call(this, {
-                   ...row,
-                   departments: row.departments.map((department: IDepartment) => {
-                       if (department.id === depId) {
-                           return {
-                               ...department,
-                               isDisabled: !department.isDisabled
-                           }
-                       }
-
-                       return department;
-                   })
-               })
-           })
+           tasks: section.tasks.map((row: IRow) => calculateRow.call(this, toggleDepartmentInRow.call(this, row, depId))),
+           total: calculateRow.call(this, toggleDepartmentInRow.call(this, section.total, depId))
        });
    });
+   this.subtotal = toggleDepartmentInRow.call(this, this.subtotal, depId);
+   this.discount = toggleDepartmentInRow.call(this, this.discount, depId);
+   this.fees = toggleDepartmentInRow.call(this, this.fees, depId);
+   this.taxes = toggleDepartmentInRow.call(this, this.taxes, depId);
+   this.total = toggleDepartmentInRow.call(this, this.total, depId);
 
     calculateTable.call(this);
 };

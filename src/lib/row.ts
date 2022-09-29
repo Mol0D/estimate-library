@@ -56,6 +56,22 @@ export function deleteDepartmentFromRow (this: ITable, row: IRow, depId: number)
     });
 }
 
+export function toggleDepartmentInRow (this: ITable, row: IRow, depId: number): IRow {
+    return {
+        ...row,
+        departments: row.departments.map((department: IDepartment) => {
+            if (department.id === depId) {
+                return {
+                    ...department,
+                    isDisabled: !department.isDisabled
+                }
+            }
+
+            return department;
+        })
+    }
+}
+
 export function toggleRow (this: ITable, row: IRow): IRow {
   return calculateRow.call(this, {
       ...row,
