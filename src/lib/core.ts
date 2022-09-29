@@ -145,6 +145,11 @@ export function updateTaskDepValue(this: ITable, sectionId: string, taskId: stri
     calculateTable.call(this);
 }
 
+/**
+ * toggle state of task to enable or disable
+ * @param sectionId
+ * @param taskId
+ */
 export function toggleTaskInSection(this: ITable, sectionId: string, taskId: string) {
     this.sections = this.sections.map((section: ISection) => {
         if (section.id === sectionId) return toggleRowInSection.call(this, section, taskId)
