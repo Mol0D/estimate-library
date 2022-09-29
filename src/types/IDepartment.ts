@@ -1,7 +1,7 @@
 export default interface IDepartment {
     id: number,
     name: string;
-    isEnabled: boolean;
+    isDisabled: boolean;
     value: number;
     rate: number;
 }

@@ -13,5 +13,6 @@ export default interface IEstimate extends ITable {
     updateRowName: (sectionId: string, rowId: string, name: string) => void;
     updateTaskValue: (sectionId: string, taskId: string, depId: number, value: number) => void;
     toggleTaskInSection: (sectionId: string, taskId: string) => void;
+    toggleDepartment: (depId: number) => void;
     setConfig: (this: ITable, config?: Partial<IConfig>) => void;
 }

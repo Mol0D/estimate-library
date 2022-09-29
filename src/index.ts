@@ -11,7 +11,7 @@ import {
     updateRowName, toggleTaskInSection,
 } from "./lib/core";
 import {IConfig} from "./types/IConfig";
-import {setConfig} from "./lib/config";
+import {setConfig, toggleDepartment} from "./lib/config";
 import IEstimate from "./types/IEstimate";
 
 function Table (config?: Partial<IConfig>): IEstimate {
@@ -34,5 +34,6 @@ Table.prototype.updateRowName = updateRowName;
 Table.prototype.updateTaskValue = updateTaskDepValue;
 Table.prototype.setConfig = setConfig;
 Table.prototype.toggleTaskInSection = toggleTaskInSection;
+Table.prototype.toggleDepartment = toggleDepartment;
 
 export default Table;

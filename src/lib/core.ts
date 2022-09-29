@@ -160,6 +160,16 @@ export function toggleTaskInSection(this: ITable, sectionId: string, taskId: str
     calculateTable.call(this);
 }
 
+export function toggleDepartment(this: ITable, depId: number) {
+    this.config.departments = this.config.departments.map((department: IDepartment) => {
+       if (department.id === depId) return {
+           ...department,
+       };
+
+       return department;
+    });
+}
+
 function calculateSubtotal(this: ITable) {
     const subtotal = resetRowDepartments(this.subtotal);
 
