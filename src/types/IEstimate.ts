@@ -1,6 +1,5 @@
 import ITable from "./ITable";
 import {IConfig} from "./IConfig";
-import {toggleTaskInSection} from "../lib/core";
 
 export default interface IEstimate extends ITable {
     createTable: () => void;
