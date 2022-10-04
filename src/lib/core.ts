@@ -2,6 +2,7 @@ import IDepartment from "../types/IDepartment";
 import ITable from "../types/ITable";
 import ISection from "../types/ISection";
 import {
+    calculateSection,
     createDuplicateSection,
     createRowInSection,
     createSection,
@@ -12,8 +13,9 @@ import {
     updateNameSection,
     updateTask
 } from "./sections";
-import { createRow, resetRowDepartments } from "./row";
+import {createRow, resetRowDepartments, toggleDepartmentInRow} from "./row";
 import {calculateAdditionalRow, calculateRow} from "./calculations";
+import IRow from "../types/IRow";
 
 /**
  * create table from scratch with config parameters
@@ -167,6 +169,28 @@ export function toggleDepartment(this: ITable, depId: number) {
        };
 
        return department;
+    });
+}
+
+/**
+ * save section order after drag and drop event
+ * @param sections
+ */
+export function updateSectionsOrder(this: ITable, sections: Array<ISection>) {
+    this.sections = sections;
+}
+
+/**
+ * save and calculate sections after drag and drop event for some task
+ * @param sections
+ */
+export function updateTasksOrder(this: ITable, sections: Array<ISection>) {
+    this.sections = sections.map((section: ISection) => {
+        return calculateSection.call(this, {
+            ...section,
+            tasks: section.tasks.map((row: IRow) => calculateRow.call(this, row)),
+            total: calculateRow.call(this, section.total)
+        });
     });
 }
 

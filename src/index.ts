@@ -8,7 +8,7 @@ import {
     duplicateSection,
     duplicateRow,
     updateSectionName,
-    updateRowName, toggleTaskInSection,
+    updateRowName, toggleTaskInSection, updateSectionsOrder, updateTasksOrder,
 } from "./lib/core";
 import {IConfig} from "./types/IConfig";
 import {setConfig, toggleDepartment} from "./lib/config";
@@ -35,5 +35,7 @@ Table.prototype.updateTaskValue = updateTaskDepValue;
 Table.prototype.setConfig = setConfig;
 Table.prototype.toggleTaskInSection = toggleTaskInSection;
 Table.prototype.toggleDepartment = toggleDepartment;
+Table.prototype.updateSectionsOrder = updateSectionsOrder;
+Table.prototype.updateTasksOrder = updateTasksOrder;
 
 export default Table;

@@ -1,5 +1,7 @@
 import ITable from "./ITable";
 import {IConfig} from "./IConfig";
+import {updateSectionsOrder, updateTasksOrder} from "../lib/core";
+import ISection from "./ISection";
 
 export default interface IEstimate extends ITable {
     createTable: () => void;
@@ -14,5 +16,7 @@ export default interface IEstimate extends ITable {
     updateTaskValue: (sectionId: string, taskId: string, depId: number, value: number) => void;
     toggleTaskInSection: (sectionId: string, taskId: string) => void;
     toggleDepartment: (depId: number) => void;
+    updateSectionsOrder: (sections: Array<ISection>) => void;
+    updateTasksOrder: (sections: Array<ISection>) => void;
     setConfig: (this: ITable, config?: Partial<IConfig>) => void;
 }
