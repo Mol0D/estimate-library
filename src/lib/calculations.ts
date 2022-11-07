@@ -1,5 +1,6 @@
 import ITable from "../types/ITable";
 import IRow from "../types/IRow";
+import IDepartment from "../types/IDepartment";
 
 const getMargin = (costPrice: number, discountPercent: number) => normalizePrice(costPrice * divIn100(discountPercent));
 
@@ -27,7 +28,7 @@ const divIn100 = (n: number) => n / 100;
 const normalizePrice = (n: number) => +n.toFixed(2);
 
 export function calculateRow(this: ITable, row: IRow): IRow {
-    const costPrice = row.departments.reduce((acc, dep) => acc + normalizePrice(dep.rate * (dep.isDisabled ? 0 :dep.value)), 0);
+    const costPrice = row.departments.reduce((acc, dep) => acc + normalizePrice(dep.rate * (dep.isDisabled ? 0 : dep.value)), 0);
     const margin = getMargin(costPrice, this.config.margin);
     const price = costPrice + margin;
 
@@ -51,5 +52,9 @@ export function calculateAdditionalRow(this: ITable, subtotal: number) {
         tax,
         total,
     }
+}
+
+export function calculateAdditionalRowPrice(this: ITable, departments: Array<IDepartment>): number {
+    return departments.reduce((acc, dep) => (acc + dep.value), 0)
 }
 

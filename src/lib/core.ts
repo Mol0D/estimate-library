@@ -13,8 +13,8 @@ import {
     updateNameSection,
     updateTask
 } from "./sections";
-import {createRow, resetRowDepartments, toggleDepartmentInRow} from "./row";
-import {calculateAdditionalRow, calculateRow} from "./calculations";
+import {createRow, resetRowDepartments } from "./row";
+import {calculateAdditionalRow, calculateAdditionalRowPrice, calculateRow} from "./calculations";
 import IRow from "../types/IRow";
 
 /**
@@ -199,10 +199,13 @@ function calculateSubtotal(this: ITable) {
 
     this.sections.forEach((section: ISection) =>
         section.total.departments.forEach((dep: IDepartment, d: number) => {
-            subtotal.departments[d].value += dep.value
+            subtotal.departments[d].value += dep.value * dep.rate
         }))
 
-    this.subtotal = calculateRow.call(this, subtotal);
+    subtotal.costPrice = subtotal.departments.reduce((acc, dep) => acc + dep.value, 0);
+    subtotal.margin = (subtotal.costPrice * this.config.margin) / 100;
+    subtotal.price = subtotal.costPrice + subtotal.margin;
+    this.subtotal = subtotal;
 }
 
 function calculateAdditionalRows(this: ITable) {
@@ -221,10 +224,10 @@ function calculateAdditionalRows(this: ITable) {
     });
 
 
-    this.discount = calculateRow.call(this, discountRow);
-    this.fees = calculateRow.call(this, feesRow);
-    this.taxes = calculateRow.call(this, taxesRow);
-    this.total = calculateRow.call(this, totalRow);
+    this.discount = { ...discountRow, price: calculateAdditionalRowPrice.call(this, discountRow.departments) };
+    this.fees = { ...feesRow, price: calculateAdditionalRowPrice.call(this, feesRow.departments) };
+    this.taxes = { ...taxesRow, price: calculateAdditionalRowPrice.call(this, taxesRow.departments) };
+    this.total = { ...totalRow, price: calculateAdditionalRowPrice.call(this, totalRow.departments) };
 }
 
 export function calculateTable(this: ITable) {
