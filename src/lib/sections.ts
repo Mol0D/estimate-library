@@ -19,7 +19,7 @@ export function createSection (departments: Array<IDepartment>, sectionName: str
         id: uuidv4(),
         name: sectionName || '',
         tasks: [createRow(departments)],
-        total: createRow(departments, 'Subtotal'),
+        total: createRow(departments, `Subtotal by ${sectionName}`),
     }
 }
 
@@ -55,7 +55,8 @@ export function deleteRowFromSection (this:ITable, section: ISection, rowId: str
 export const updateNameSection = (section: ISection, name: string): ISection => {
     return {
         ...section,
-        name
+        name,
+        total: { ...section.total, name: `Subtotal by ${name}`}
     }
 };
 
