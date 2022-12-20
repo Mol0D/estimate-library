@@ -21,11 +21,12 @@ export const initialConfig = (): IConfig => ({
 export function setConfig (this: ITable, config?: Partial<IConfig>) {
     this.config = {
         ...initialConfig(),
+        ...this.config,
         ...config,
-        departments: config?.departments!.map((department: IDepartment) => ({
+        departments: config?.departments?.map((department: IDepartment) => ({
             ...department,
             isDisabled: false,
-        })) || [],
+        })) || this.config.departments,
     };
 
     if (this.total) calculateTable.call(this);
